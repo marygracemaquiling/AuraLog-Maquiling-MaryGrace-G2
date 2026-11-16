@@ -8,7 +8,8 @@
         <div class="card">
             <h3>Migraine Attack Logger</h3>
             <p>Record attack start/end times, pain severity scores (1–10), and tagged symptoms on your interactive calendar.</p>
-            <button disabled>Coming in Phase 2</button>
+            <a href="{% url 'migraine_create' %}"><button>Log Attack</button></a>
+            <a href="{% url 'migraine_list' %}" style="margin-left: 8px;"><button>View Logs</button></a>
         </div>
 
         <div class="card">
