@@ -1,0 +1,20 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+    <h2>Log In to AuraLog</h2>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+            <label for="email">Email Address:</label><br>
+            <input type="email" id="email" name="email" required style="width: 100%; padding: 8px; margin-top: 5px;">
+        </p>
+        <p>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required style="width: 100%; padding: 8px; margin-top: 5px;">
+        </p>
+        <button type="submit">Log In</button>
+    </form>
+
+    <p style="margin-top: 15px;">Don't have an account yet? <a href="{% url 'register' %}">Create an account</a>.</p>
+{% endblock %}

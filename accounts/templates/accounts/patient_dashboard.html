@@ -1,0 +1,26 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+    <h2>Patient Dashboard</h2>
+    <p>Welcome back, <strong>{{ user.full_name }}</strong>! Here is an overview of your migraine tracking tools.</p>
+
+    <div class="card-grid">
+        <div class="card">
+            <h3>Migraine Attack Logger</h3>
+            <p>Record attack start/end times, pain severity scores (1–10), and tagged symptoms on your interactive calendar.</p>
+            <button disabled>Coming in Phase 2</button>
+        </div>
+
+        <div class="card">
+            <h3>Symptom & Trigger Notepad</h3>
+            <p>Log daily habits, suspected environmental or dietary triggers, and personal observations.</p>
+            <button disabled>Coming in Phase 2</button>
+        </div>
+
+        <div class="card">
+            <h3>AI Clinical Summary</h3>
+            <p>Compile your logged episodes and notes into a structured report for your upcoming medical consultation.</p>
+            <button disabled>Coming in Phase 2</button>
+        </div>
+    </div>
+{% endblock %}

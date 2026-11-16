@@ -1,0 +1,14 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+    <h2>Create an AuraLog Account</h2>
+    <p>Track migraine episodes, identify triggers, and generate doctor-ready clinical summaries.</p>
+    
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+
+    <p style="margin-top: 15px;">Already have an account? <a href="{% url 'login' %}">Log in here</a>.</p>
+{% endblock %}
