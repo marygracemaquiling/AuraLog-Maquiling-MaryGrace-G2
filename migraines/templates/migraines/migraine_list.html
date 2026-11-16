@@ -1,0 +1,45 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>My Migraine Attack Logs</h2>
+        <a href="{% url 'migraine_create' %}"><button>+ Log Migraine Attack</button></a>
+    </div>
+    <p>Track and manage your recorded migraine episodes, symptoms, and suspected triggers.</p>
+
+    {% if logs %}
+        {% for log in logs %}
+            <div class="card" style="margin-bottom: 15px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3 style="margin: 0;">{{ log.start_time|date:"M d, Y – g:i A" }}</h3>
+                    <span style="background: #f59e0b; color: #1f1600; padding: 4px 10px; border-radius: 12px; font-weight: bold;">
+                        Severity: {{ log.severity_score }}/10
+                    </span>
+                </div>
+                <p style="margin: 8px 0;">
+                    <strong>Duration:</strong>
+                    {% if log.duration_hours %}{{ log.duration_hours }} hrs{% else %}Ongoing / Not specified{% endif %}
+                    | <strong>Shared with Doctor:</strong> {{ log.is_shared_with_doctor|yesno:"Yes,No" }}
+                </p>
+                <p style="margin: 5px 0;">
+                    <strong>Symptoms:</strong>
+                    {% for s in log.symptoms.all %}{{ s.name }}{% if not forloop.last %}, {% endif %}{% empty %}None recorded{% endfor %}
+                </p>
+                <p style="margin: 5px 0;">
+                    <strong>Triggers:</strong>
+                    {% for t in log.triggers.all %}{{ t.name }}{% if not forloop.last %}, {% endif %}{% empty %}None recorded{% endfor %}
+                </p>
+                {% if log.medication_taken %}
+                    <p style="margin: 5px 0;"><strong>Medication:</strong> {{ log.medication_taken }}</p>
+                {% endif %}
+                {% if log.notes %}
+                    <p style="margin: 5px 0;"><strong>Notes:</strong> {{ log.notes }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="card">
+            <p>You haven't logged any migraine attacks yet. Click <strong>+ Log Migraine Attack</strong> to record your first entry.</p>
+        </div>
+    {% endif %}
+{% endblock %}
