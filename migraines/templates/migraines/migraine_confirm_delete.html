@@ -1,0 +1,14 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+    <h2>Delete Migraine Log</h2>
+    <div class="card">
+        <p>Are you sure you want to delete your migraine log from <strong>{{ log.start_time|date:"M d, Y – g:i A" }}</strong> (Severity: {{ log.severity_score }}/10)?</p>
+        <p><em>This action cannot be undone.</em></p>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" style="background-color: #dc2626; color: white;">Yes, Delete Log</button>
+            <a href="{% url 'migraine_list' %}" style="margin-left: 15px;">Cancel</a>
+        </form>
+    </div>
+{% endblock %}
