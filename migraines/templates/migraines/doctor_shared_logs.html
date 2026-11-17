@@ -1,0 +1,41 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+    <h2>Shared Patient Migraine Logs</h2>
+    <p>Clinical overview of migraine episodes shared by patients for consultation review.</p>
+
+    {% if shared_logs %}
+        {% for log in shared_logs %}
+            <div class="card" style="margin-bottom: 15px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3 style="margin: 0;">Patient: {{ log.patient.full_name }} (Age: {{ log.patient.age|default:"N/A" }})</h3>
+                    <span style="background: #f59e0b; color: #1f1600; padding: 4px 10px; border-radius: 12px; font-weight: bold;">
+                        Severity: {{ log.severity_score }}/10
+                    </span>
+                </div>
+                <p style="margin: 8px 0;">
+                    <strong>Attack Start:</strong> {{ log.start_time|date:"M d, Y – g:i A" }}
+                    {% if log.duration_hours %} | <strong>Duration:</strong> {{ log.duration_hours }} hrs{% endif %}
+                </p>
+                <p style="margin: 5px 0;">
+                    <strong>Symptoms:</strong>
+                    {% for s in log.symptoms.all %}{{ s.name }}{% if not forloop.last %}, {% endif %}{% empty %}None{% endfor %}
+                </p>
+                <p style="margin: 5px 0;">
+                    <strong>Suspected Triggers:</strong>
+                    {% for t in log.triggers.all %}{{ t.name }}{% if not forloop.last %}, {% endif %}{% empty %}None{% endfor %}
+                </p>
+                {% if log.medication_taken %}
+                    <p style="margin: 5px 0;"><strong>Medication Taken:</strong> {{ log.medication_taken }}</p>
+                {% endif %}
+                {% if log.notes %}
+                    <p style="margin: 5px 0;"><strong>Patient Notes:</strong> {{ log.notes }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="card">
+            <p>No patient migraine logs are currently shared.</p>
+        </div>
+    {% endif %}
+{% endblock %}
