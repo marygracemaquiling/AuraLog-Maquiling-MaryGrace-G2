@@ -38,7 +38,7 @@ def doctor_shared_logs(request):
     shared_logs = MigraineLog.objects.filter(is_shared_with_doctor=True).select_related('patient')
     return render(request, 'migraines/doctor_shared_logs.html', {'shared_logs': shared_logs})
 
-    @login_required
+@login_required
 @role_required('patient')
 def migraine_update(request, pk):
     log = get_object_or_404(MigraineLog, pk=pk, patient=request.user)
@@ -53,7 +53,6 @@ def migraine_update(request, pk):
     else:
         form = MigraineLogForm(instance=log)
     return render(request, 'migraines/migraine_form.html', {'form': form, 'action': 'Edit'})
-
 
 @login_required
 @role_required('patient')

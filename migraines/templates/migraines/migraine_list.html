@@ -5,15 +5,8 @@
         <h2>My Migraine Attack Logs</h2>
         <a href="{% url 'migraine_create' %}"><button>+ Log Migraine Attack</button></a>
     </div>
-
-    <div style="margin-top: 12px; padding-top: 10px; border-top: 1px solid #fde68a;">
-        <a href="{% url 'migraine_update' log.pk %}"><button type="button">Edit</button></a>
-        <a href="{% url 'migraine_delete' log.pk %}" style="margin-left: 10px;"><button type="button" style="background-color: #ef4444; color: white;">Delete</button></a>
-    </div>
-    
     <p>Track and manage your recorded migraine episodes, symptoms, and suspected triggers.</p>
 
-    
     {% if logs %}
         {% for log in logs %}
             <div class="card" style="margin-bottom: 15px;">
@@ -42,6 +35,12 @@
                 {% if log.notes %}
                     <p style="margin: 5px 0;"><strong>Notes:</strong> {{ log.notes }}</p>
                 {% endif %}
+
+                <!-- Edit and Delete buttons correctly placed inside the loop per log item -->
+                <div style="margin-top: 12px; padding-top: 10px; border-top: 1px solid #fde68a;">
+                    <a href="{% url 'migraine_update' log.pk %}"><button type="button">Edit</button></a>
+                    <a href="{% url 'migraine_delete' log.pk %}" style="margin-left: 10px;"><button type="button" style="background-color: #ef4444; color: white;">Delete</button></a>
+                </div>
             </div>
         {% endfor %}
     {% else %}
